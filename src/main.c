@@ -5,7 +5,8 @@
 int main(int argc, char *argv[])
 {
     createBuffer();
-    writeToBuffer("hello world");
+    writeToBuffer("hello");
+    writeToBuffer(" world");
 
     printf("%s", fileWriteBuffer);
 }

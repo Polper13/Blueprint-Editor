@@ -36,7 +36,7 @@ void createBuffer()
 
 void extendBuffer()
 {
-    printf("trying to extend to %d bytes\n", fileWriteBufferSize * 2);
+    printf("extending to %d bytes\n", fileWriteBufferSize * 2);
 
     char *ptr = (char*)malloc(fileWriteBufferSize * 2);
     if (ptr == NULL)
@@ -71,7 +71,7 @@ void writeToBuffer(char *string)
     }
 
     fileWriteBufferLength += stringLength;
-    fileWriteBuffer[stringLength] = '\0';
+    fileWriteBuffer[fileWriteBufferLength] = '\0';
 }
 
 void closeFile()
