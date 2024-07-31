@@ -12,11 +12,11 @@ int fileWriteBufferLength;
 
 void createFile(char *name)
 {
-    file = fopen("blueprint.json", "w");
+    file = fopen(name, "w");
 
     if (file == NULL)
     {
-        printf("could not create file");
+        printf("could not create file\n");
         exit(EXIT_FAILURE);
     }
 }
@@ -26,7 +26,7 @@ void createBuffer()
     fileWriteBuffer = (char*)malloc(startingBufferSize * sizeof(char));
     if (fileWriteBuffer == NULL)
     {
-        printf("could not allocate buffer");
+        printf("could not allocate buffer\n");
         exit(EXIT_FAILURE);
     }
 
@@ -41,7 +41,13 @@ void extendBuffer()
     char *ptr = (char*)malloc(fileWriteBufferSize * 2);
     if (ptr == NULL)
     {
-        printf("could not extend buffer");
+        printf("could not extend buffer\n");
+        exit(EXIT_FAILURE);
+    }
+
+    if (fileWriteBuffer == NULL)
+    {
+        printf("could not copy contents to new buffer - old buffer didnt exist");
         exit(EXIT_FAILURE);
     }
 
@@ -57,8 +63,13 @@ void extendBuffer()
 
 void writeToBuffer(char *string)
 {
+    if (string == NULL)
+    {
+        printf("could not write to buffer - string was null");
+        exit(EXIT_FAILURE);
+    }
+
     int stringLength = strlen(string);
-    printf("string length: %d\n", stringLength);
 
     while (fileWriteBufferSize - fileWriteBufferLength < stringLength)
     {
@@ -72,6 +83,35 @@ void writeToBuffer(char *string)
 
     fileWriteBufferLength += stringLength;
     fileWriteBuffer[fileWriteBufferLength] = '\0';
+}
+
+void writeBufferToFile()
+{
+    if (fileWriteBuffer == NULL)
+    {
+        printf("could not write to file - buffer didnt exist");
+        exit(EXIT_FAILURE);
+    }
+
+    if (file == NULL)
+    {
+        printf("could not write to file - file didnt exist");
+        exit(EXIT_FAILURE);
+    }
+
+    size_t length = strlen(fileWriteBuffer);
+    size_t written = fwrite(fileWriteBuffer, sizeof(char), length, file);
+
+    if (written < length)
+    {
+        printf("error while writing buffer to file\n");
+        exit(EXIT_FAILURE);
+    }
+}
+
+void clearBuffer()
+{
+    fileWriteBufferLength = 0;
 }
 
 void closeFile()
