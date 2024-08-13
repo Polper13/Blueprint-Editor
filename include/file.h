@@ -11,6 +11,7 @@ void createFile(char *name);
 void createBuffer();
 
 void extendBuffer();
+void removeLastCharacters(int amount);
 
 void writeToBuffer(char *string);
 void writeBufferToFile();

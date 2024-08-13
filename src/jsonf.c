@@ -8,10 +8,11 @@ void addBlueprintBegining()
 
 void addBlueprintEnding()
 {
+    removeLastCharacters(10);
     writeToBuffer("]\n"TAB"}],\n"TAB"\"version\": 4\n}");
 }
 
-void addLogicGate(int connectionAmount, int* connectionIDs, Pos* pos, Rot* rot, int partID, int mode, int colorID)
+void addLogicGate(int connectionAmount, int* connectionIDs, Pos* pos, const Rot rot, int partID, int mode, int colorID)
 {
     if (connectionAmount > 0 && connectionIDs == NULL)
     {
@@ -94,19 +95,14 @@ void addLogicGate(int connectionAmount, int* connectionIDs, Pos* pos, Rot* rot, 
     writeToBuffer(TAB3"},\n"TAB3"\"shapeId\": \"9f0f56e8-2c31-4d83-996c-d00a9b296c3f\",\n");
 
     writeToBuffer(TAB3"\"xaxis\": ");
-    snprintf(buffer, sizeof(buffer), "%d", rot->x);
+    snprintf(buffer, sizeof(buffer), "%d", rot.x);
     writeToBuffer(buffer);
     writeToBuffer(",\n");
 
     writeToBuffer(TAB3"\"zaxis\": ");
-    snprintf(buffer, sizeof(buffer), "%d", rot->z);
+    snprintf(buffer, sizeof(buffer), "%d", rot.z);
     writeToBuffer(buffer);
     writeToBuffer("\n");
 
-    writeToBuffer(TAB2"}");
-}
-
-void addPointSymbol()
-{
-    writeToBuffer(",\n"TAB2);
+    writeToBuffer(TAB2"},\n"TAB2);
 }

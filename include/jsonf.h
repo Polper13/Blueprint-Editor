@@ -14,5 +14,4 @@
 void addBlueprintBegining();
 void addBlueprintEnding();
 
-void addLogicGate(int connectionAmount, int* connectionIDs, Pos* pos, Rot* rot, int partID, int mode, int colorID);
-void addPointSymbol();
+void addLogicGate(int connectionAmount, int* connectionIDs, Pos* pos, const Rot rot, int partID, int mode, int colorID);

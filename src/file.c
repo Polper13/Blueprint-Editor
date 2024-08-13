@@ -36,9 +36,9 @@ void createBuffer()
 
 void extendBuffer()
 {
-    printf("extending to %d bytes\n", fileWriteBufferSize * 2);
+    printf("extending file buffer to %d bytes\n", fileWriteBufferSize * 2);
 
-    char *ptr = (char*)malloc(fileWriteBufferSize * 2);
+    char *ptr = (char*)malloc(fileWriteBufferSize * 2 * sizeof(char));
     if (ptr == NULL)
     {
         printf("could not extend buffer\n");
@@ -59,6 +59,18 @@ void extendBuffer()
     free(fileWriteBuffer);
     fileWriteBufferSize *= 2;
     fileWriteBuffer = ptr;
+}
+
+void removeLastCharacters(int amount)
+{
+    if (fileWriteBuffer == NULL)
+    {
+        printf("could not remove last character - buffer didnt exist");
+        exit(EXIT_FAILURE);
+    }
+
+    fileWriteBuffer[fileWriteBufferLength - amount] = '\0';
+    fileWriteBufferLength -= amount;
 }
 
 void writeToBuffer(char *string)
