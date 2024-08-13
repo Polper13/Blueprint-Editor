@@ -1,6 +1,6 @@
 #pragma once
 
-#define NONE 0b0000000000000000 // 16 bits
+#define NONE 0b00000000 // 8 bits
 
 static const int wordBitCount = 8;
 static const int wordCount = 16;
